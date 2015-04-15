@@ -34,7 +34,7 @@ def clean_html(content):
     root = lxml.html.fromstring(content)
     cleaner = lxml.html.clean.Cleaner(style=True)
     cleaned_html = cleaner.clean_html(root)
-    for el in cleaned_html.xpath("*//p|//br"):
+    for el in cleaned_html.xpath("//p|//br|//div"):
         el.tail = "\n" + el.tail if el.tail else "\n"
     return cleaned_html
 
