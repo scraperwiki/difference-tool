@@ -35,7 +35,7 @@ def clean_html(content):
     cleaner = lxml.html.clean.Cleaner(style=True)
     cleaned_html = cleaner.clean_html(root)
     for el in cleaned_html.xpath("//p|//br|//div"):
-        el.tail = "\n" + el.tail if el.tail else "\n"
+        el.tail = "\n\n" + el.tail if el.tail else "\n\n"
     return cleaned_html
 
 
@@ -43,13 +43,11 @@ def write_output(output_filename, element):
     """ Write text from HTML element and all child elements to output file. """
     output_path = join(dirname(abspath(__file__)), output_filename)
     text_content = element.text_content()
-    # Remove leading and trailing whitespace. Add extra newline for
-    # readability; have to do this here as splitlines only allows
-    # for keeping one newline character.
-    output_lines = [re.sub(r'^(\s)+|[ \t]+$', '', line + '\n')
-                    for line in text_content.splitlines(True)]
+    #output_lines = [re.sub(u'^[\s\xa0]+|[ \t\xa0]+$', '', line + '\n')
+    #                for line in text_content.splitlines(True)]
     with codecs.open(output_path, 'w', encoding='utf-8') as f:
-        f.writelines(output_lines)
+        f.write(text_content)
+        #f.writelines(output_lines)
 
 
 def download_page(url):
