@@ -30,7 +30,7 @@ def clean_html(content):
     See http://lxml.de/3.4/api/lxml.html.clean.Cleaner-class.html
     """
     # Remove line breaks in HTML; lxml includes these in text_content() otherwise.
-    content = re.sub(r'(\r\n|\n|\r)+', '', content)
+    content = re.sub(r'(\r\n|\n|\r)+', ' ', content)
     root = lxml.html.fromstring(content)
     cleaner = lxml.html.clean.Cleaner(style=True)
     cleaned_html = cleaner.clean_html(root)
