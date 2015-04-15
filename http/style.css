@@ -51,7 +51,7 @@ body {
   margin: 0 0 15px 0;
 }
 
-#source-url {
+.source-url-input {
   width: 466px;
 }
 
