@@ -42,12 +42,8 @@ def clean_html(content):
 def write_output(output_filename, element):
     """ Write text from HTML element and all child elements to output file. """
     output_path = join(dirname(abspath(__file__)), output_filename)
-    text_content = element.text_content()
-    #output_lines = [re.sub(u'^[\s\xa0]+|[ \t\xa0]+$', '', line + '\n')
-    #                for line in text_content.splitlines(True)]
     with codecs.open(output_path, 'w', encoding='utf-8') as f:
-        f.write(text_content)
-        #f.writelines(output_lines)
+        f.write(element.text_content())
 
 
 def download_page(url):
