@@ -1,0 +1,5 @@
+{
+  "displayName": "Compare text from two URLs",
+  "description": "Run a diff tool on text from two URLs",
+  "color": "#CC3399"
+}
