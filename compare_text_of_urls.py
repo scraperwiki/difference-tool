@@ -21,12 +21,12 @@ def main(argv=None):
         urls = arg[0]
     else:
         # ... but normally the URL comes from the allSettings.json file
-        with open(os.path.expanduser("~/allSettings.json")) as settings:
-            urls = json.load(settings)['source-url']
-    
-    parsed_urls = urls.strip().split(' ')
-    assert len(parsed_urls) == 2, 'Two URLs not entered.'
-    diff_urls(parsed_urls[0], parsed_urls[1])
+        with open(os.path.expanduser("~/allSettings.json")) as settings_json:
+            settings = json.load(settings_json)
+            url1 = settings['source-url']
+            url2 = settings['source-url2']
+    assert url1 and url2, 'Two URLs not entered.'
+    diff_urls(url1, url2)
 
 
 def diff_urls(url1, url2):
