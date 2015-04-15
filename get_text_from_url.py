@@ -30,26 +30,20 @@ def clean_html(content):
     See http://lxml.de/3.4/api/lxml.html.clean.Cleaner-class.html
     """
     # Remove line breaks in HTML; lxml includes these in text_content() otherwise.
-    content = re.sub(r'(\r\n|\n|\r)+', '', content)
+    content = re.sub(r'(\r\n|\n|\r)+', ' ', content)
     root = lxml.html.fromstring(content)
     cleaner = lxml.html.clean.Cleaner(style=True)
     cleaned_html = cleaner.clean_html(root)
     for el in cleaned_html.xpath("//p|//br|//div"):
-        el.tail = "\n" + el.tail if el.tail else "\n"
+        el.tail = "\n\n" + el.tail if el.tail else "\n\n"
     return cleaned_html
 
 
 def write_output(output_filename, element):
     """ Write text from HTML element and all child elements to output file. """
     output_path = join(dirname(abspath(__file__)), output_filename)
-    text_content = element.text_content()
-    # Remove leading and trailing whitespace. Add extra newline for
-    # readability; have to do this here as splitlines only allows
-    # for keeping one newline character.
-    output_lines = [re.sub(r'^(\s)+|[ \t]+$', '', line + '\n')
-                    for line in text_content.splitlines(True)]
     with codecs.open(output_path, 'w', encoding='utf-8') as f:
-        f.writelines(output_lines)
+        f.write(element.text_content())
 
 
 def download_page(url):
