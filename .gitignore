@@ -2,4 +2,4 @@ scraperwiki.sqlite
 cache.sqlite
 text_from_url*
 *.pyc
-/http/diff.html
+http/diff.html
